@@ -40,7 +40,10 @@ class GuzzleConnector implements Connector
      */
     public function createGetRequest(string $url, string $key): ?string
     {
-        $request = $this->client->get($url);
+        $request = $this->client->get($url, [
+            'Content-Type' => 'application/json',
+            'Authorization' => sprintf('Token token=%s', $key),
+        ]);
         return $request->getBody()->getContents();
     }
 
